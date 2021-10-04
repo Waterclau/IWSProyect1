@@ -18,7 +18,7 @@ public class CustomerDAO {
                 ResultSet rs = pst.executeQuery()) {
 
             while (rs.next()) {
-            	lista.add(new Customer(rs.getString(1),rs.getString(2)));
+            	lista.add(new Customer(rs.getString(1),rs.getString(2),rs.getString(3)));
             }
 
         } catch (SQLException ex) {
@@ -34,8 +34,8 @@ public class CustomerDAO {
 		CustomerDAO.getClientes(lista);
 		
 		
-		 for (Customer customer : lista) {			
-			System.out.println("He leído el id: "+customer.getId()+" con nombre: "+customer.getName());
+		 for (Customer customer : lista) {
+			 System.out.println("He leído el id: "+customer.getId()+" con nombre: "+customer.getName() + " movil comprado: "+customer.getMovil());
 		}
 		
 	
