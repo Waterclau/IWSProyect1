@@ -59,7 +59,11 @@ public class SocketServer extends Thread {
 				case "/getMovil":
 					CustomerControler customerControler1=new CustomerControler();
 					ArrayList<Movil> listaMovil=new ArrayList<Movil>();
+					System.out.println(mensajeIn.getSession().get("Marca"));
+					System.out.println(mensajeIn.getSession().get("Precio"));
 					customerControler1.getMovil(listaMovil, (String)mensajeIn.getSession().get("Marca"), (String)mensajeIn.getSession().get("Precio"), (String)mensajeIn.getSession().get("Modelo"), (String)mensajeIn.getSession().get("Almacenamiento"), (String)mensajeIn.getSession().get("Memoria") );
+					System.out.println("Lista de moviles seleccionados");
+					System.out.print(listaMovil);
 					mensajeOut.setContext("/getMovilResponse");
 					HashMap<String,Object> session1=new HashMap<String, Object>();
 

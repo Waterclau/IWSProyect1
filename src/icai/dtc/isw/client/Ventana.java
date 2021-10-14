@@ -111,12 +111,19 @@ public class Ventana extends JFrame
         {
             public void mouseClicked(MouseEvent e)
             {
-
                 String marca = txtSeleccion1.getText();
                 String precio = txtSeleccion2.getText();
+                System.out.println(precio);
+
+                System.out.println(precio);
                 String modelo = txtSeleccion3.getText();
+
+
                 String almacenamiento = txtSeleccion4.getText();
+
+
                 String memoria = txtSeleccion5.getText();
+
 
                 Client cliente = new Client();
                 HashMap<String,Object> session = new HashMap<String,Object>();
@@ -126,6 +133,8 @@ public class Ventana extends JFrame
                 session.put("Modelo", modelo);
                 session.put("Almacenamiento",almacenamiento);
                 session.put("Memoria", memoria);
+
+
 
                 cliente.enviar(session,"/getMovil");
 

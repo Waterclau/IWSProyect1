@@ -63,9 +63,11 @@ public class Client {
                 cliente.setCustomers(customerList);
 
             case "/getMovilResponse":
+                System.out.println(mensajeVuelta.getSession());
                 ArrayList<Movil> movilList = (ArrayList<Movil>)(mensajeVuelta.getSession().get("Movil"));
                 this.movilList = movilList;
-                System.out.println(movilList.get(0).getDatos()+",    "+ movilList.get(1).getDatos());
+                System.out.println(movilList);
+
 
             default:
                 Logger.getRootLogger().info("Option not found");
@@ -120,6 +122,8 @@ public class Client {
         try {
 
             System.out.println("Connecting to host " + host + " on port " + port + ".");
+
+
 
             Socket echoSocket = null;
             OutputStream out = null;

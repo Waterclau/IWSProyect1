@@ -38,7 +38,7 @@ public class CustomerDAO {
 			 ResultSet rs = pst.executeQuery()) {
 
 			while (rs.next()) {
-				lista.add(new Movil(rs.getString(1),rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5)));
+				lista.add(new Movil(rs.getString(2),rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6)));
 			}
 
 		} catch (SQLException ex) {
