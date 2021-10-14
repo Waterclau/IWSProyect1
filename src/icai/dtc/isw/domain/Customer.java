@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Customer implements Serializable{
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private String id;
@@ -19,7 +19,7 @@ public class Customer implements Serializable{
 		this.setMovil(new String());
 
 	}
-	
+
 	public Customer(String id, String name, String movil) {
 		this.setName(name);
 		this.setId(id);
@@ -49,6 +49,6 @@ public class Customer implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
+
 }
