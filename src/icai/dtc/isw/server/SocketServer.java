@@ -13,9 +13,13 @@ import java.util.HashMap;
 import icai.dtc.isw.controler.CustomerControler;
 import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.message.Message;
+import icai.dtc.isw.domain.Movil;
+import icai.dtc.isw.client.*;
 
 public class SocketServer extends Thread {
 	public static final int PORT_NUMBER = 8081;
+
+	public Client cliente;
 
 	protected Socket socket;
 
@@ -28,6 +32,7 @@ public class SocketServer extends Thread {
 	public void run() {
 		InputStream in = null;
 		OutputStream out = null;
+
 		try {
 			in = socket.getInputStream();
 			out = socket.getOutputStream();
@@ -39,6 +44,7 @@ public class SocketServer extends Thread {
 		    ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
 		    Message mensajeOut=new Message();
 		    switch (mensajeIn.getContext()) {
+
 		    	case "/getCustomer":
 		    		CustomerControler customerControler=new CustomerControler();
 		    		ArrayList<Customer> lista=new ArrayList<Customer>();
@@ -47,9 +53,20 @@ public class SocketServer extends Thread {
 		    		HashMap<String,Object> session=new HashMap<String, Object>();
 		    		session.put("Customer",lista);
 		    		mensajeOut.setSession(session);
-		    		objectOutputStream.writeObject(mensajeOut);		    		
-		    	break;
-		    	
+		    		objectOutputStream.writeObject(mensajeOut);
+
+		    		break;
+				case "/getMovil":
+					CustomerControler customerControler1=new CustomerControler();
+					ArrayList<Movil> listaMovil=new ArrayList<Movil>();
+					customerControler1.getMovil(listaMovil, (String)mensajeIn.getSession().get("Marca"), (String)mensajeIn.getSession().get("Precio"), (String)mensajeIn.getSession().get("Modelo"), (String)mensajeIn.getSession().get("Almacenamiento"), (String)mensajeIn.getSession().get("Memoria") );
+					mensajeOut.setContext("/getMovilResponse");
+					HashMap<String,Object> session1=new HashMap<String, Object>();
+
+					session1.put("Movil",listaMovil);
+					mensajeOut.setSession(session1);
+					objectOutputStream.writeObject(mensajeOut);
+		    		break;
 		    	
 		    	default:
 		    		System.out.println("\nParámetro no encontrado");
