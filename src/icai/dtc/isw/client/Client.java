@@ -14,39 +14,45 @@ import org.apache.log4j.Logger;
 
 import icai.dtc.isw.configuration.PropertiesISW;
 import icai.dtc.isw.domain.Customer;
+import icai.dtc.isw.domain.Movil;
+import icai.dtc.isw.controler.CustomerControler;
+
+
 import icai.dtc.isw.message.Message;
 
 public class Client {
-	private String host;
-	private int port;
-	final static Logger logger = Logger.getLogger(Client.class);
-	HashMap<String,String> customerMap;
-	ArrayList<Customer> customerList;
+    private String host;
+    private int port;
+    final static Logger logger = Logger.getLogger(Client.class);
+    HashMap<String,String> customerMap;
+    ArrayList<Customer> customerList;
+    ArrayList<Movil> movilList;
 
 
-	public static void main(String args[]) {
-		//Configure connections
-		String host = PropertiesISW.getInstance().getProperty("host");
-		int port = Integer.parseInt(PropertiesISW.getInstance().getProperty("port"));
-		Logger.getRootLogger().info("Host: "+host+" port"+port);
-		//Create a cliente class
-		Client cliente=new Client(host, port);
+    public void enviar(HashMap<String, Object> session, String context) {
+        //Configure connections
+        String host = PropertiesISW.getInstance().getProperty("host");
+        int port = Integer.parseInt(PropertiesISW.getInstance().getProperty("port"));
+        Logger.getRootLogger().info("Host: "+host+" port"+port);
+        //Create a cliente class
+        Client cliente=new Client(host, port);
 
-		HashMap<String,Object> session=new HashMap<String, Object>();
-		//session.put("/getCustomer","");
+        //HashMap<String,Object> session=new HashMap<String, Object>();
+        //session.put("/getCustomer","");
 
-		cliente.createVentana();
+        //cliente.createVentana();
 
-		Message mensajeEnvio=new Message();
-		Message mensajeVuelta=new Message();
-		mensajeEnvio.setContext("/getCustomer");
-		mensajeEnvio.setSession(session);
-		cliente.sent(mensajeEnvio,mensajeVuelta);
+        Message mensajeEnvio=new Message();
+        Message mensajeVuelta=new Message();
+        //mensajeEnvio.setContext("/getCustomer");
+        mensajeEnvio.setContext(context);
+        mensajeEnvio.setSession(session);
+        cliente.sent(mensajeEnvio,mensajeVuelta);
 
 
-		switch (mensajeVuelta.getContext()) {
-			case "/getCustomerResponse":
-				ArrayList<Customer> customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
+        switch (mensajeVuelta.getContext()) {
+            case "/getCustomerResponse":
+                ArrayList<Customer> customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
 
                 /*for (Customer customer : customerList) {
                     System.out.println("He leído el id: "+customer.getId()+" con nombre: "+customer.getName() + " movil comprado: "+customer.getMovil());
@@ -54,91 +60,103 @@ public class Client {
                 break;
                 */
 
-				cliente.setCustomers(customerList);
+                cliente.setCustomers(customerList);
 
-			default:
-				Logger.getRootLogger().info("Option not found");
-				System.out.println("\nError a la vuelta");
-				break;
+            case "/getMovilResponse":
+                ArrayList<Movil> movilList = (ArrayList<Movil>)(mensajeVuelta.getSession().get("Movil"));
+                this.movilList = movilList;
+                System.out.println(movilList.get(0).getDatos()+",    "+ movilList.get(1).getDatos());
 
-		}
-		//System.out.println("3.- En Main.- El valor devuelto es: "+((String)mensajeVuelta.getSession().get("Nombre")));
-	}
+            default:
+                Logger.getRootLogger().info("Option not found");
+                System.out.println("\nError a la vuelta");
+                break;
 
-	public Client(String host, int port) {
-		this.host=host;
-		this.port=port;
+        }
+        //System.out.println("3.- En Main.- El valor devuelto es: "+((String)mensajeVuelta.getSession().get("Nombre")));
+    }
 
-	}
+    public Client(String host, int port) {
+        this.host=host;
+        this.port=port;
 
-	public void createVentana()
-	{
-		new Ventana(this);
-	}
+    }
 
-	public void setCustomers(ArrayList<Customer> customerList)
-	{
-		this.customerList = customerList;
-		this.customerMap = new HashMap<String,String>();
-		for (Customer customer : customerList) {
-			System.out.println("He leído el id: "+customer.getId()+" con nombre: "+customer.getName());
-			customerMap.put(customer.getId(),customer.getName());
-		}
+    public Client()
+    {
 
-	}
+    }
 
-	public HashMap<String, String> getCustomers()
-	{
 
-		return customerMap;
-	}
 
-	public ArrayList<Customer> getCustomerList()
-	{
-		return this.customerList;
-	}
+    public void setCustomers(ArrayList<Customer> customerList)
+    {
+        this.customerList = customerList;
+        this.customerMap = new HashMap<String,String>();
+        for (Customer customer : customerList) {
+            System.out.println("He leído el id: "+customer.getId()+" con nombre: "+customer.getName());
+            customerMap.put(customer.getId(),customer.getName());
+        }
 
-	public void sent(Message messageOut, Message messageIn) {
-		try {
+    }
 
-			System.out.println("Connecting to host " + host + " on port " + port + ".");
+    public HashMap<String, String> getCustomers()
+    {
 
-			Socket echoSocket = null;
-			OutputStream out = null;
-			InputStream in = null;
+        return customerMap;
+    }
 
-			try {
-				echoSocket = new Socket(host, port);
-				in = echoSocket.getInputStream();
-				out = echoSocket.getOutputStream();
-				ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
+    public ArrayList<Customer> getCustomerList()
+    {
+        return this.customerList;
+    }
 
-				//Create the objetct to send
-				objectOutputStream.writeObject(messageOut);
+    public ArrayList<Movil> getMovilList()
+    {
+        return this.movilList;
+    }
 
-				// create a DataInputStream so we can read data from it.
-				ObjectInputStream objectInputStream = new ObjectInputStream(in);
-				Message msg=(Message)objectInputStream.readObject();
-				messageIn.setContext(msg.getContext());
-				messageIn.setSession(msg.getSession());
+    public void sent(Message messageOut, Message messageIn) {
+        try {
+
+            System.out.println("Connecting to host " + host + " on port " + port + ".");
+
+            Socket echoSocket = null;
+            OutputStream out = null;
+            InputStream in = null;
+
+            try {
+                echoSocket = new Socket(host, port);
+                in = echoSocket.getInputStream();
+                out = echoSocket.getOutputStream();
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
+
+                //Create the objetct to send
+                objectOutputStream.writeObject(messageOut);
+
+                // create a DataInputStream so we can read data from it.
+                ObjectInputStream objectInputStream = new ObjectInputStream(in);
+                Message msg=(Message)objectInputStream.readObject();
+                messageIn.setContext(msg.getContext());
+                messageIn.setSession(msg.getSession());
 		        /*System.out.println("\n1.- El valor devuelto es: "+messageIn.getContext());
 		        String cadena=(String) messageIn.getSession().get("Nombre");
 		        System.out.println("\n2.- La cadena devuelta es: "+cadena);*/
 
-			} catch (UnknownHostException e) {
-				System.err.println("Unknown host: " + host);
-				System.exit(1);
-			} catch (IOException e) {
-				System.err.println("Unable to get streams from server");
-				System.exit(1);
-			}
+            } catch (UnknownHostException e) {
+                System.err.println("Unknown host: " + host);
+                System.exit(1);
+            } catch (IOException e) {
+                System.err.println("Unable to get streams from server");
+                System.exit(1);
+            }
 
-			/** Closing all the resources */
-			out.close();
-			in.close();
-			echoSocket.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+            /** Closing all the resources */
+            out.close();
+            in.close();
+            echoSocket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
