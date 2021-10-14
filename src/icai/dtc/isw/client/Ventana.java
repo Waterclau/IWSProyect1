@@ -4,8 +4,10 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.HashMap;
 import java.lang.instrument.ClassDefinition;
 
+import icai.dtc.isw.controler.CustomerControler;
 import icai.dtc.isw.domain.Customer;
 
 public class Ventana extends JFrame
@@ -28,10 +30,14 @@ public class Ventana extends JFrame
 
 
 
+
+
     public Ventana()
     {
         super("Ventana");
         this.setLayout(new BorderLayout());
+
+
 
 
         btnShowAll = new JButton("Mostrar todos ");
@@ -100,14 +106,32 @@ public class Ventana extends JFrame
 
 
 
-        /*
+
         btnShowAll.addMouseListener(new MouseAdapter()
         {
             public void mouseClicked(MouseEvent e)
             {
-                new VentanaResultados(client);
+
+                String marca = txtSeleccion1.getText();
+                String precio = txtSeleccion2.getText();
+                String modelo = txtSeleccion3.getText();
+                String almacenamiento = txtSeleccion4.getText();
+                String memoria = txtSeleccion5.getText();
+
+                Client cliente = new Client();
+                HashMap<String,Object> session = new HashMap<String,Object>();
+
+                session.put("Marca",marca);
+                session.put("Precio", precio);
+                session.put("Modelo", modelo);
+                session.put("Almacenamiento",almacenamiento);
+                session.put("Memoria", memoria);
+
+                cliente.enviar(session,"/getMovil");
+
+                new VentanaResultados(cliente);
             }
-        });*/
+        });
 
 
 
@@ -124,4 +148,3 @@ public class Ventana extends JFrame
 
 
 }
-

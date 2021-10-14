@@ -6,7 +6,9 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
 
+
 import icai.dtc.isw.domain.Customer;
+import icai.dtc.isw.domain.Movil;
 
 public class VentanaResultados extends JFrame
 {
@@ -27,7 +29,7 @@ public class VentanaResultados extends JFrame
         ArrayList<Customer> customerList = client.getCustomerList();
 
 
-        customers = client.getCustomers();
+        /*customers = client.getCustomers();
 
         for(Customer c: customerList)
         {
@@ -43,7 +45,24 @@ public class VentanaResultados extends JFrame
 
         }
 
+         */
 
+        ArrayList<Movil> movilList = client.getMovilList();
+
+
+        for(Movil m: movilList)
+        {
+            txt = new JTextField();
+            pnlNorte.add(txt);
+            txt.setText("Marca: "+m.getMarca() +" | Precio: "+ m.getPrecio() + " | Modelo: "+ m.getModelo()+ " | Almacenamiento: "+m.getAlmacenamiento()+ " | Memoria: "+ m.getMemoria());
+            txt.setPreferredSize( new Dimension( 400, 50 ) );
+            txt.setForeground(Color.BLUE);
+            txt.setBackground(Color.LIGHT_GRAY);
+            txt.setFont(new Font("Serif", Font.BOLD, 13));
+
+
+
+        }
 
 
 
