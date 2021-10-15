@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.lang.instrument.ClassDefinition;
 
 import icai.dtc.isw.controler.CustomerControler;
@@ -111,18 +112,37 @@ public class Ventana extends JFrame
         {
             public void mouseClicked(MouseEvent e)
             {
-                String marca = txtSeleccion1.getText();
-                String precio = txtSeleccion2.getText();
-                System.out.println(precio);
+                String marca = "marca";
+                String precio = "10000";
+                String modelo = "modelo";
+                String almacenamiento = "10000";
+                String memoria = "10000";
 
-                System.out.println(precio);
-                String modelo = txtSeleccion3.getText();
+                if(!txtSeleccion1.getText().equals(""))
+                {
+                    marca = txtSeleccion1.getText();
+                }
 
+                if(!txtSeleccion2.getText().equals(""))
+                {
+                    precio = txtSeleccion2.getText();
+                }
 
-                String almacenamiento = txtSeleccion4.getText();
+                if(!txtSeleccion3.getText().equals(""))
+                {
+                    modelo = txtSeleccion3.getText();
+                }
 
+                if(!txtSeleccion4.getText().equals(""))
+                {
+                    almacenamiento = txtSeleccion4.getText();
+                }
 
-                String memoria = txtSeleccion5.getText();
+                if(!txtSeleccion5.getText().equals(""))
+                {
+                    memoria = txtSeleccion5.getText();
+                }
+
 
 
                 Client cliente = new Client();
