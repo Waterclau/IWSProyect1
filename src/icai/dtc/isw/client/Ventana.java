@@ -40,18 +40,18 @@ public class Ventana extends JFrame
 
 
 
-        btnShowAll = new JButton("Mostrar todos ");
+        btnShowAll = new JButton("Buscar ");
         JLabel lblTitulo = new JLabel("PhoneFitter");
         lblTitulo.setFont(new Font("URIAL FONT", Font.BOLD, 90));
-        JLabel lblCuestion1 = new JLabel("Marca  ");
+        JLabel lblCuestion1 = new JLabel("Marca de preferencia: ");
         lblCuestion1.setFont(new Font("URIAL FONT", Font.BOLD, 30));
-        JLabel lblCuestion2 = new JLabel("Precio: ");
+        JLabel lblCuestion2 = new JLabel("Precio Máximo: ");
         lblCuestion2.setFont(new Font("URIAL FONT", Font.BOLD, 30));
         JLabel lblCuestion3 = new JLabel("Modelo: ");
         lblCuestion3.setFont(new Font("URIAL FONT", Font.BOLD, 30));
-        JLabel lblCuestion4 = new JLabel("Almacenamiento: ");
+        JLabel lblCuestion4 = new JLabel("Almacenamiento mínimo: ");
         lblCuestion4.setFont(new Font("URIAL FONT", Font.BOLD, 30));
-        JLabel lblCuestion5 = new JLabel("Memoria: ");
+        JLabel lblCuestion5 = new JLabel("Memoria mínima: ");
         lblCuestion5.setFont(new Font("URIAL FONT", Font.BOLD, 30));
 
 
@@ -111,20 +111,41 @@ public class Ventana extends JFrame
         {
             public void mouseClicked(MouseEvent e)
             {
-                String marca = txtSeleccion1.getText();
-                String precio = txtSeleccion2.getText();
-                System.out.println(precio);
+                String marca = "marca";
+                String precio = "10000";
+                String modelo = "modelo";
+                String almacenamiento = "10000";
+                String memoria = "10000";
 
-                System.out.println(precio);
-                String modelo = txtSeleccion3.getText();
+                if(!txtSeleccion1.getText().equals(""))
+                {
+                    marca = txtSeleccion1.getText();
+                }
+
+                if(!(txtSeleccion2.getText().equals("")))
+                {
+                    System.out.println("Precio seleccionado ");
+                    precio = txtSeleccion2.getText();
+                    System.out.println(precio);
+                }
+
+                if(!txtSeleccion3.getText().equals(""))
+                {
+                    modelo = txtSeleccion3.getText();
+                }
+
+                if(!txtSeleccion4.getText().equals(""))
+                {
+                    almacenamiento = txtSeleccion4.getText();
+                }
+
+                if(!txtSeleccion5.getText().equals(""))
+                {
+                    memoria = txtSeleccion5.getText();
+                }
 
 
-                String almacenamiento = txtSeleccion4.getText();
-
-
-                String memoria = txtSeleccion5.getText();
-
-
+                System.out.println("Hola" + txtSeleccion4.getText());
                 Client cliente = new Client();
                 HashMap<String,Object> session = new HashMap<String,Object>();
 

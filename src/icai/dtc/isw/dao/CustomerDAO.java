@@ -34,7 +34,7 @@ public class CustomerDAO {
 
 	public static void getMoviles(ArrayList<Movil> lista, String marca, String precio, String modelo, String almacenamiento, String memoria) {
 		Connection con=ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM phones WHERE Marca='"+marca+"' OR Modelo='"+modelo+"' OR Precio<="+precio+" OR Almacenamiento="+almacenamiento+" OR Memoria="+memoria);
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM phones WHERE (Marca='"+marca+"' OR Modelo='"+modelo+"'OR Almacenamiento>="+almacenamiento+" OR Memoria>="+memoria+") AND Precio<="+precio +"ORDER BY marca, precio");
 			 ResultSet rs = pst.executeQuery()) {
 
 			while (rs.next()) {
