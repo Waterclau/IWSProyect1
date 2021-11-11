@@ -45,7 +45,7 @@ public class SocketServer extends Thread {
 		    Message mensajeOut=new Message();
 		    switch (mensajeIn.getContext()) {
 
-		    	case "/getCustomer":
+		    	case "/getCustomers":
 		    		CustomerControler customerControler=new CustomerControler();
 		    		ArrayList<Customer> lista=new ArrayList<Customer>();
 		    		customerControler.getCustomer(lista);
@@ -56,6 +56,12 @@ public class SocketServer extends Thread {
 		    		objectOutputStream.writeObject(mensajeOut);
 
 		    		break;
+
+				case "/login":
+					CustomerControler customerControler3 = new CustomerControler();
+					ArrayList<Movil> listaMoviles = new ArrayList<Movil>();
+
+
 				case "/getMovil":
 					CustomerControler customerControler1=new CustomerControler();
 					ArrayList<Movil> listaMovil=new ArrayList<Movil>();
@@ -71,6 +77,17 @@ public class SocketServer extends Thread {
 					mensajeOut.setSession(session1);
 					objectOutputStream.writeObject(mensajeOut);
 		    		break;
+
+				case "/setCustomer":
+					CustomerControler customerControler2 = new CustomerControler();
+					customerControler2.setCustomer((String)mensajeIn.getSession().get("Usuario"),(String)mensajeIn.getSession().get("Password"));
+					mensajeOut.setContext("/setCustomerResponse");
+					HashMap<String,Object> session2=new HashMap<String, Object>();
+					session2.put("Customer","Usuario creado");
+					mensajeOut.setSession(session2);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
 		    	
 		    	default:
 		    		System.out.println("\nParámetro no encontrado");

@@ -20,5 +20,15 @@ public class CustomerControler {
 		CustomerDAO.getMoviles(lista, marca, precio, modelo, almacenamiento, memoria);
 	}
 
+	public void setCustomer(String usuario, String password)
+	{
+		CustomerDAO.setCustomer(usuario,password);
+	}
+
+	public void login(ArrayList<Movil> listaMovil, String usuario, String password)
+	{
+		CustomerDAO.login(usuario, password);
+	}
+
 
 }

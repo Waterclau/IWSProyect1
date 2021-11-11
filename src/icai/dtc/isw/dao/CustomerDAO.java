@@ -19,7 +19,7 @@ public class CustomerDAO {
 			 ResultSet rs = pst.executeQuery()) {
 
 			while (rs.next()) {
-				lista.add(new Customer(rs.getString(1),rs.getString(2),rs.getString(3)));
+				lista.add(new Customer(rs.getString(2),rs.getString(3)));
 			}
 
 		} catch (SQLException ex) {
@@ -34,7 +34,7 @@ public class CustomerDAO {
 
 	public static void getMoviles(ArrayList<Movil> lista, String marca, String precio, String modelo, String almacenamiento, String memoria) {
 		Connection con=ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM phones WHERE (Marca='"+marca+"' OR Modelo='"+modelo+"'OR Almacenamiento>="+almacenamiento+" OR Memoria>="+memoria+") AND Precio<="+precio +"ORDER BY marca, precio");
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM phones WHERE (marca='"+marca+"' OR modelo='"+modelo+"'OR almacenamiento>="+almacenamiento+" OR memoria>="+memoria+") AND precio<="+precio +"ORDER BY marca, precio");
 			 ResultSet rs = pst.executeQuery()) {
 
 			while (rs.next()) {
@@ -47,6 +47,38 @@ public class CustomerDAO {
 		}
 	}
 
+
+	public static void setCustomer(String usuario, String password)
+		{
+			Connection con=ConnectionDAO.getInstance().getConnection();
+			try (PreparedStatement pst = con.prepareStatement("INSERT INTO usuarios (usuario, password) VALUES ('"+usuario+"', '"+password+"')");
+				 ResultSet rs = pst.executeQuery()){
+
+
+			} catch (SQLException ex) {
+
+				System.out.println(ex.getMessage());
+			}
+
+
+		}
+
+
+	public static void login(String usuario, String password)
+	{
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("SELECT count(usuario) FROM usuarios WHERE usuario='"+usuario+"' AND password='"+password+"';");
+			 ResultSet rs = pst.executeQuery()){
+
+
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+
+	}
+
+	/*
 	public static void main(String[] args) {
 
 
@@ -60,5 +92,7 @@ public class CustomerDAO {
 
 
 	}
+
+	 */
 
 }

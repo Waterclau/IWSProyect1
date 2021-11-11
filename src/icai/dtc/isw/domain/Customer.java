@@ -1,6 +1,7 @@
 package icai.dtc.isw.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Customer implements Serializable{
 	/**
@@ -9,21 +10,28 @@ public class Customer implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
-	private String movil;
+	private ArrayList<Movil> moviles;
 
 
 
 	public Customer() {
 		this.setId(new String());
 		this.setName(new String());
-		this.setMovil(new String());
+
 
 	}
 
-	public Customer(String id, String name, String movil) {
+	public Customer(String id, String name) {
 		this.setName(name);
 		this.setId(id);
-		this.setMovil(movil);
+
+	}
+
+	public Customer(String id, String name, ArrayList<Movil> moviles)
+	{
+		this.id = id;
+		this.name = name;
+		this.moviles = moviles;
 	}
 
 	public String getId() {
@@ -34,12 +42,12 @@ public class Customer implements Serializable{
 		this.id = id;
 	}
 
-	public String getMovil() {
-		return movil;
+	public ArrayList<Movil> getMoviles() {
+		return moviles;
 	}
 
-	public void setMovil(String movil) {
-		this.movil = movil;
+	public void addMovil(Movil movil) {
+		this.moviles.add(movil);
 	}
 
 	public String getName() {

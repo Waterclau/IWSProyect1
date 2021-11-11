@@ -68,6 +68,10 @@ public class Client {
                 this.movilList = movilList;
                 System.out.println(movilList);
 
+            case "/setCustomerResponse":
+                System.out.println(mensajeVuelta.getSession());
+                System.out.println("Usuario creado");
+
 
             default:
                 Logger.getRootLogger().info("Option not found");
