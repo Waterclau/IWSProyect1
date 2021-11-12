@@ -39,7 +39,6 @@ public class Ventana extends JFrame
 
 
 
-
         btnShowAll = new JButton("Mostrar todos ");
         btnShowAll.setBackground(new Color(255, 170, 0));
         btnShowAll.setForeground(new Color(255,69,0));
@@ -181,6 +180,13 @@ public class Ventana extends JFrame
         background.add(pnlCuestionario);
         pnlCentro.add(background);
         pnlCentro.setBackground(new Color(239, 127, 26));
+
+        btnMostrarUser.addActionListener(new ActionListener()
+        {
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(Ventana.this, "Usuario no registrado/creado" );
+            }
+        });
 
         obligatorio1.addItemListener(new ItemListener()
         {

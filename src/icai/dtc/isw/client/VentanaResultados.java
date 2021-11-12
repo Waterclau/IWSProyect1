@@ -56,9 +56,9 @@ public class VentanaResultados extends JFrame
             pnlNorte.add(txt);
             txt.setText("Marca: "+m.getMarca() +" | Precio: "+ m.getPrecio() + " | Modelo: "+ m.getModelo()+ " | Almacenamiento: "+m.getAlmacenamiento()+ " | Memoria: "+ m.getMemoria());
             txt.setPreferredSize( new Dimension( 400, 50 ) );
-            txt.setForeground(Color.BLUE);
-            txt.setBackground(Color.LIGHT_GRAY);
-            txt.setFont(new Font("Serif", Font.BOLD, 13));
+            txt.setForeground(new Color(255,69,0));
+            txt.setBackground(new Color(255, 170, 0));
+            txt.setFont(new Font("URIAL FONT", Font.BOLD, 15));
 
 
 
