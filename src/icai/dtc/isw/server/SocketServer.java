@@ -60,6 +60,21 @@ public class SocketServer extends Thread {
 				case "/login":
 					CustomerControler customerControler3 = new CustomerControler();
 					ArrayList<Movil> listaMoviles = new ArrayList<Movil>();
+					int exito=customerControler3.login(listaMoviles, (String)mensajeIn.getSession().get("Usuario"), (String)mensajeIn.getSession().get("Password"));
+					for(Movil m: listaMoviles)
+					{
+						System.out.println(m.getDatos());
+					}
+
+					mensajeOut.setContext("/loginResponse");
+					HashMap<String,Object> session3=new HashMap<String, Object>();
+
+					session3.put("Moviles",listaMoviles);
+					session3.put("Exito",exito);
+					session3.put("Usuario",(String)mensajeIn.getSession().get("Usuario"));
+					mensajeOut.setSession(session3);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
 
 
 				case "/getMovil":
@@ -80,10 +95,11 @@ public class SocketServer extends Thread {
 
 				case "/setCustomer":
 					CustomerControler customerControler2 = new CustomerControler();
-					customerControler2.setCustomer((String)mensajeIn.getSession().get("Usuario"),(String)mensajeIn.getSession().get("Password"));
+					int exito2=customerControler2.setCustomer((String)mensajeIn.getSession().get("Usuario"),(String)mensajeIn.getSession().get("Password"));
 					mensajeOut.setContext("/setCustomerResponse");
 					HashMap<String,Object> session2=new HashMap<String, Object>();
 					session2.put("Customer","Usuario creado");
+					session2.put("Exito2",exito2);
 					mensajeOut.setSession(session2);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
