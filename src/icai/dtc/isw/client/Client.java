@@ -27,6 +27,10 @@ public class Client {
     HashMap<String,String> customerMap;
     ArrayList<Customer> customerList;
     ArrayList<Movil> movilList;
+    ArrayList<Movil> movilesUsuario;
+    int exito;
+    int exito2;
+    String nombreUsuario;
 
 
     public void enviar(HashMap<String, Object> session, String context) {
@@ -49,6 +53,7 @@ public class Client {
         mensajeEnvio.setSession(session);
         cliente.sent(mensajeEnvio,mensajeVuelta);
 
+        System.out.println("El mensaje es: "+ mensajeVuelta.getContext());
 
         switch (mensajeVuelta.getContext()) {
             case "/getCustomerResponse":
@@ -61,16 +66,35 @@ public class Client {
                 */
 
                 cliente.setCustomers(customerList);
+                break;
 
             case "/getMovilResponse":
                 System.out.println(mensajeVuelta.getSession());
                 ArrayList<Movil> movilList = (ArrayList<Movil>)(mensajeVuelta.getSession().get("Movil"));
                 this.movilList = movilList;
                 System.out.println(movilList);
+                break;
 
             case "/setCustomerResponse":
                 System.out.println(mensajeVuelta.getSession());
                 System.out.println("Usuario creado");
+
+                this.exito2=(Integer)(mensajeVuelta.getSession().get("Exito2"));
+                break;
+
+
+            case "/loginResponse":
+                System.out.println(mensajeVuelta.getSession());
+                System.out.println("Login exitoso");
+
+
+                ArrayList<Movil> movilesUsuario = (ArrayList<Movil>)(mensajeVuelta.getSession().get("Moviles"));
+
+                this.exito=(Integer)(mensajeVuelta.getSession().get("Exito"));
+                this.movilesUsuario = movilesUsuario;
+                this.nombreUsuario=(String)(mensajeVuelta.getSession().get("Usuario"));
+
+                break;
 
 
             default:
@@ -120,6 +144,19 @@ public class Client {
     public ArrayList<Movil> getMovilList()
     {
         return this.movilList;
+    }
+
+    public int getExito()
+    {
+        return exito;
+    }
+
+    public int getExito2(){
+        return exito2;
+    }
+
+    public String getNombreUsuario(){
+        return nombreUsuario;
     }
 
     public void sent(Message messageOut, Message messageIn) {

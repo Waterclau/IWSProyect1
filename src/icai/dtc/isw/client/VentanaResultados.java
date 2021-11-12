@@ -52,14 +52,25 @@ public class VentanaResultados extends JFrame
 
         for(Movil m: movilList)
         {
+            JPanel pnlMovil = new JPanel(new FlowLayout());
+            JButton btnGuardar = new JButton("Guardar");
             txt = new JTextField();
-            pnlNorte.add(txt);
-            txt.setText("Marca: "+m.getMarca() +" | Precio: "+ m.getPrecio() + " | Modelo: "+ m.getModelo()+ " | Almacenamiento: "+m.getAlmacenamiento()+ " | Memoria: "+ m.getMemoria());
-            txt.setPreferredSize( new Dimension( 400, 50 ) );
-            txt.setForeground(Color.BLUE);
-            txt.setBackground(Color.LIGHT_GRAY);
-            txt.setFont(new Font("Serif", Font.BOLD, 13));
+            pnlMovil.add(txt);
+            pnlMovil.add(btnGuardar);
+            pnlMovil.setBackground(new Color(255, 170, 0));
 
+
+            txt.setText("Marca: "+m.getMarca() +" | Precio: "+ m.getPrecio() + " | Modelo: "+ m.getModelo()+ " | Almacenamiento: "+m.getAlmacenamiento()+ " | Memoria: "+ m.getMemoria());
+            txt.setPreferredSize( new Dimension( 800, 50 ) );
+            txt.setForeground(new Color(255,69,0));
+            txt.setBackground(new Color(255, 170, 0));
+            txt.setFont(new Font("URIAL FONT", Font.BOLD, 15));
+
+            btnGuardar.setForeground(new Color(255,69,0));
+            btnGuardar.setBackground(new Color(194, 197, 204));
+            btnGuardar.setFont(new Font("URIAL FONT", Font.BOLD, 15));
+
+            pnlNorte.add(pnlMovil);
 
 
         }

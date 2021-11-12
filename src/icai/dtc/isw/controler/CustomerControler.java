@@ -20,14 +20,16 @@ public class CustomerControler {
 		CustomerDAO.getMoviles(lista, marca, precio, modelo, almacenamiento, memoria);
 	}
 
-	public void setCustomer(String usuario, String password)
+	public int setCustomer(String usuario, String password)
 	{
-		CustomerDAO.setCustomer(usuario,password);
+		int exito=CustomerDAO.setCustomer(usuario,password);
+		return exito;
 	}
 
-	public void login(ArrayList<Movil> listaMovil, String usuario, String password)
+	public int login(ArrayList<Movil> listaMovil, String usuario, String password)
 	{
-		CustomerDAO.login(usuario, password);
+		int exito=CustomerDAO.login(listaMovil,usuario, password);
+		return exito;
 	}
 
 
