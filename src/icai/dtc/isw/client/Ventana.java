@@ -1,5 +1,6 @@
 package icai.dtc.isw.client;
 
+
 import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.*;
@@ -18,12 +19,13 @@ public class Ventana extends JFrame
 
     JButton btnShowAll;
 
-
+/*
     public static void main(String args[])
     {
-        new Ventana();
+        new Ventana(cliente);
     }
 
+ */
 
 
 
@@ -32,7 +34,8 @@ public class Ventana extends JFrame
 
 
 
-    public Ventana()
+
+    public Ventana(Client cliente)
     {
         super("Ventana");
         this.setLayout(new BorderLayout());
@@ -62,10 +65,22 @@ public class Ventana extends JFrame
         JLabel lblCuestion5 = new JLabel("Memoria: ");
         lblCuestion5.setFont(new Font("URIAL FONT", Font.BOLD, 20));
         lblCuestion5.setForeground(new Color(255,69,0));
-        JLabel nombreuser = new JLabel("Nombre usuario");
-        nombreuser.setFont(new Font("URIAL FONT", Font.BOLD, 10));
+
+
+        JLabel nombreuser;
+
+        if(cliente.getNombreUsuario()==null){
+            nombreuser= new JLabel("Invitado");
+
+        }
+        else{
+            nombreuser=new JLabel(cliente.getNombreUsuario());
+        }
+        nombreuser.setFont(new Font("URIAL FONT", Font.BOLD, 15));
         nombreuser.setForeground(new Color(255,69,0));
         nombreuser.setBackground(new Color(255, 170, 0));
+
+
         JToggleButton obligatorio1 = new JToggleButton("Marcar Obligatorio");
         obligatorio1.setPreferredSize(new Dimension(20, 20));
         obligatorio1.setForeground(new Color(255,69,0));
@@ -110,10 +125,10 @@ public class Ventana extends JFrame
         JTextField txtSeleccion4 = new JTextField();
         JTextField txtSeleccion5 = new JTextField();
 
-        JLabel background = new JLabel(new ImageIcon("/home/clux/IdeaProjects/projectISW19/src/icai/dtc/isw/client/fondo_phone.jpg"));
-        JLabel fondologo = new JLabel(new ImageIcon("/home/clux/IdeaProjects/projectISW19/src/icai/dtc/isw/client/fondo_titulo.jpg"));
+        JLabel background = new JLabel(new ImageIcon("src/icai/dtc/isw/Imagenes/fondo_phone.jpg"));
+        JLabel fondologo = new JLabel(new ImageIcon("src/icai/dtc/isw/Imagenes/fondo_titulo.jpg"));
         //JLabel logo = new JLabel(new ImageIcon("\\home\\clux\\Desktop\\Fotos_IW\\Logo_ISW.JPG"));
-        JLabel userfoto = new JLabel(new ImageIcon("/home/clux/IdeaProjects/projectISW19/src/icai/dtc/isw/client/avatar_usuario.jpg"));
+        JLabel userfoto = new JLabel(new ImageIcon("src/icai/dtc/isw/Imagenes/avatar_usuario.jpg"));
         JLabel vacio = new JLabel();
         vacio.setBackground(new Color(255, 170, 0));
         JPanel usuario = new JPanel(new FlowLayout());
@@ -183,8 +198,8 @@ public class Ventana extends JFrame
 
         btnMostrarUser.addActionListener(new ActionListener()
         {
-                public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(Ventana.this, "Usuario no registrado/creado" );
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(Ventana.this, "Usuario no registrado/creado" );
             }
         });
 
@@ -274,8 +289,8 @@ public class Ventana extends JFrame
                 String marca = "marca";
                 String precio = "10000";
                 String modelo = "modelo";
-                String almacenamiento = "10000";
-                String memoria = "10000";
+                String almacenamiento = "1";
+                String memoria = "1";
 
                 if(!txtSeleccion1.getText().equals(""))
                 {
@@ -311,6 +326,9 @@ public class Ventana extends JFrame
                 session.put("Modelo", modelo);
                 session.put("Almacenamiento",almacenamiento);
                 session.put("Memoria", memoria);
+
+
+                System.out.println("El precio seleccionado es: "+precio);
 
 
 

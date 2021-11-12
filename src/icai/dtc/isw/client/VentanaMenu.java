@@ -84,6 +84,21 @@ public class VentanaMenu extends JFrame
                 session.put("Password",txtContrasenya.getText());
 
                 cliente.enviar(session,"/setCustomer");
+
+                int exito2=cliente.getExito2();
+
+                if(exito2==1)
+                {
+                    JOptionPane.showMessageDialog(VentanaMenu.this, "Usuario creado correctamente");
+
+                }
+
+                else{
+                    JOptionPane.showMessageDialog(VentanaMenu.this, "El nombre de usuario ya está cogido");
+
+                }
+
+
             }
         });
 
@@ -99,7 +114,39 @@ public class VentanaMenu extends JFrame
                 session.put("Usuario",txtUsuario.getText());
                 session.put("Password",txtContrasenya.getText());
 
-                cliente.enviar(session,"/getCustomer");
+                cliente.enviar(session,"/login");
+
+
+                int exito=cliente.getExito();
+                if(exito==1){
+                    new Ventana(cliente);
+                }
+
+                else if(exito==0)
+                {
+                    JOptionPane.showMessageDialog(VentanaMenu.this, "El usuario no existe o los datos son incorrectos");
+                }
+
+                else if(exito==2)
+                {
+                    JOptionPane.showMessageDialog(VentanaMenu.this, "El usuario no tiene móviles guardados");
+                    new Ventana(cliente);
+
+                }
+
+            }
+        });
+
+
+
+        btnInvitado.addMouseListener(new MouseAdapter()
+        {
+            public void mouseClicked(MouseEvent e)
+            {
+                Client cliente = new Client();
+                new Ventana(cliente);
+
+
             }
         });
     }
