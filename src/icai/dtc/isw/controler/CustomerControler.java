@@ -32,5 +32,11 @@ public class CustomerControler {
 		return exito;
 	}
 
+	public int guardarMovil(String id_modelo, String usuario)
+	{
+		int exito=CustomerDAO.guardarMovil(id_modelo, usuario);
+		return exito;
+	}
+
 
 }

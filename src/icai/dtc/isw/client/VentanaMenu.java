@@ -129,7 +129,7 @@ public class VentanaMenu extends JFrame
 
                 else if(exito==2)
                 {
-                    JOptionPane.showMessageDialog(VentanaMenu.this, "El usuario no tiene móviles guardados");
+                    //JOptionPane.showMessageDialog(VentanaMenu.this, "El usuario no tiene móviles guardados");
                     new Ventana(cliente);
 
                 }

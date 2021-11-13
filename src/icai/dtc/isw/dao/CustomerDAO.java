@@ -41,7 +41,7 @@ public class CustomerDAO {
 			 ResultSet rs = pst.executeQuery()) {
 
 			while (rs.next()) {
-				lista.add(new Movil(rs.getString(2),rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6)));
+				lista.add(new Movil(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6)));
 			}
 
 		} catch (SQLException ex) {
@@ -74,6 +74,28 @@ public class CustomerDAO {
 
 		}
 
+	public static int guardarMovil(String id_modelo, String usuario)
+	{
+		int exito=1;
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		System.out.println("La query para guardar el movil es:     UPDATE usuarios SET id_moviles= id_moviles || ARRAY ["+id_modelo+"] WHERE usuario='"+usuario+"'");
+		try (PreparedStatement pst = con.prepareStatement("UPDATE usuarios SET id_moviles= id_moviles || ARRAY ["+id_modelo+"] WHERE usuario='"+usuario+"'");
+			 ResultSet rs = pst.executeQuery()){
+
+
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+
+
+		}
+
+		return exito;
+
+
+
+	}
+
 
 	public static int login(ArrayList<Movil> listaMovil,String usuario, String password)
 	{
@@ -98,7 +120,7 @@ public class CustomerDAO {
 							try (PreparedStatement pst3 = con.prepareStatement("SELECT * FROM phones WHERE id_modelo IN " + listString + ";");
 								 ResultSet rs3 = pst3.executeQuery()) {
 								while (rs3.next()) {
-									listaMovil.add(new Movil(rs3.getString(2), rs3.getString(3), rs3.getString(4), rs3.getString(5), rs3.getString(6)));
+									listaMovil.add(new Movil(rs3.getString(1),rs3.getString(2), rs3.getString(3), rs3.getString(4), rs3.getString(5), rs3.getString(6)));
 									System.out.println(listaMovil);
 									System.out.println("hola");
 								}

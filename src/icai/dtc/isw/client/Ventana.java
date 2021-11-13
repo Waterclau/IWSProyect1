@@ -5,27 +5,24 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.instrument.ClassDefinition;
 
 import icai.dtc.isw.controler.CustomerControler;
 import icai.dtc.isw.domain.Customer;
+import icai.dtc.isw.domain.Movil;
 
 public class Ventana extends JFrame
 {
 
-    //Todas las variables
+
 
 
     JButton btnShowAll;
+    String nombreUsuario;
 
-/*
-    public static void main(String args[])
-    {
-        new Ventana(cliente);
-    }
 
- */
 
 
 
@@ -67,14 +64,17 @@ public class Ventana extends JFrame
         lblCuestion5.setForeground(new Color(255,69,0));
 
 
+
         JLabel nombreuser;
 
         if(cliente.getNombreUsuario()==null){
             nombreuser= new JLabel("Invitado");
+            this.nombreUsuario = "Invitado";
 
         }
         else{
             nombreuser=new JLabel(cliente.getNombreUsuario());
+            this.nombreUsuario = cliente.getNombreUsuario();
         }
         nombreuser.setFont(new Font("URIAL FONT", Font.BOLD, 15));
         nombreuser.setForeground(new Color(255,69,0));
@@ -196,12 +196,7 @@ public class Ventana extends JFrame
         pnlCentro.add(background);
         pnlCentro.setBackground(new Color(239, 127, 26));
 
-        btnMostrarUser.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(Ventana.this, "Usuario no registrado/creado" );
-            }
-        });
+
 
         obligatorio1.addItemListener(new ItemListener()
         {
@@ -271,7 +266,21 @@ public class Ventana extends JFrame
 
 
 
+        btnMostrarUser.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e) {
 
+                if(Ventana.this.nombreUsuario.equals("Invitado")){
+                    JOptionPane.showMessageDialog(Ventana.this, "Usuario no registrado/creado" );
+
+                }
+                else
+                {
+                    new VentanaUsuario(cliente);
+
+                }
+            }
+        });
 
 
 
@@ -320,6 +329,7 @@ public class Ventana extends JFrame
 
                 Client cliente = new Client();
                 HashMap<String,Object> session = new HashMap<String,Object>();
+                cliente.setNombreUsuario(Ventana.this.nombreUsuario);
 
                 session.put("Marca",marca);
                 session.put("Precio", precio);
@@ -329,10 +339,12 @@ public class Ventana extends JFrame
 
 
                 System.out.println("El precio seleccionado es: "+precio);
-
+                System.out.println("El usuario en la Ventana es: "+cliente.getNombreUsuario());
 
 
                 cliente.enviar(session,"/getMovil");
+
+
 
                 new VentanaResultados(cliente);
             }

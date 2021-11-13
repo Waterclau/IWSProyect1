@@ -12,17 +12,19 @@ public class Movil implements Serializable{
     private String precio;
     private String almacenamiento;
     private String memoria;
+    private String id_modelo;
 
 
 
 
 
-    public Movil(String marca, String precio, String modelo, String almacenamiento, String memoria) {
+    public Movil(String id_modelo, String marca, String precio, String modelo, String almacenamiento, String memoria) {
         this.setMarca(marca);
         this.setModelo(modelo);
         this.setPrecio(precio);
         this.setAlmacenamiento(almacenamiento);
         this.setMemoria(memoria);
+        this.setId_modelo(id_modelo);
     }
 
     public String getMarca() {
@@ -67,6 +69,14 @@ public class Movil implements Serializable{
     public void setMemoria(String memoria)
     {
         this.memoria = memoria;
+    }
+
+    public void setId_modelo(String id_modelo){
+        this.id_modelo=id_modelo;
+    }
+
+    public String getId_modelo(){
+        return id_modelo;
     }
 
     public String getDatos()

@@ -30,6 +30,7 @@ public class Client {
     ArrayList<Movil> movilesUsuario;
     int exito;
     int exito2;
+    int exito4;
     String nombreUsuario;
 
 
@@ -96,6 +97,11 @@ public class Client {
 
                 break;
 
+            case "/guardarMovilResponse":
+                System.out.println(mensajeVuelta.getSession());
+                this.exito4=(Integer)(mensajeVuelta.getSession().get("Exito4")); //Se guarda en el cliente si se ha guardado el movil exitosamente
+                break;
+
 
             default:
                 Logger.getRootLogger().info("Option not found");
@@ -130,6 +136,11 @@ public class Client {
 
     }
 
+    public void setNombreUsuario(String usuario)
+    {
+        this.nombreUsuario = usuario;
+    }
+
     public HashMap<String, String> getCustomers()
     {
 
@@ -155,8 +166,17 @@ public class Client {
         return exito2;
     }
 
+    public int getExito4(){
+        return exito4;
+    }
+
     public String getNombreUsuario(){
         return nombreUsuario;
+    }
+
+    public ArrayList<Movil> getMovilesUsuario()
+    {
+        return movilesUsuario;
     }
 
     public void sent(Message messageOut, Message messageIn) {

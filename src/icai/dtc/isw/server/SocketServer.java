@@ -104,8 +104,20 @@ public class SocketServer extends Thread {
 					objectOutputStream.writeObject(mensajeOut);
 					break;
 
-		    	
-		    	default:
+
+				case "/guardarMovil":
+					CustomerControler customerControler4 = new CustomerControler();
+					int exito4=customerControler4.guardarMovil((String)mensajeIn.getSession().get("id_modelo"),(String)mensajeIn.getSession().get("Usuario"));
+					mensajeOut.setContext("/guardarMovilResponse");
+					HashMap<String,Object> session4=new HashMap<String, Object>();
+					session4.put("Exito4",exito4);
+					mensajeOut.setSession(session4);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
+
+
+				default:
 		    		System.out.println("\nParámetro no encontrado");
 		    		break;
 		    }

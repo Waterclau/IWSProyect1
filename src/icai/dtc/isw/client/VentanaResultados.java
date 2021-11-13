@@ -16,6 +16,7 @@ public class VentanaResultados extends JFrame
 
     JTextField txt;
     Client client;
+    String nombreUsuario;
 
 
     public VentanaResultados(Client client)
@@ -29,23 +30,22 @@ public class VentanaResultados extends JFrame
         ArrayList<Customer> customerList = client.getCustomerList();
 
 
-        /*customers = client.getCustomers();
 
-        for(Customer c: customerList)
+        //La ventanaResultados debe saber el usuario que ha accedido, o si se ha accedido como invitado
+
+        if(client.getNombreUsuario()==null)
         {
-            txt = new JTextField();
-            pnlNorte.add(txt);
-            txt.setText("ID: "+c.getId() +" | Nombre: "+ c.getName() + " | Movil: "+ c.getMovil());
-            txt.setPreferredSize( new Dimension( 400, 50 ) );
-            txt.setForeground(Color.BLUE);
-            txt.setBackground(Color.LIGHT_GRAY);
-            txt.setFont(new Font("Serif", Font.BOLD, 13));
-
-
+            this.nombreUsuario="Invitado";
+        }
+        else{
+            nombreUsuario=client.getNombreUsuario();
 
         }
 
-         */
+        System.out.println("El usuario en la ventanaResultados es: "+this.nombreUsuario);
+
+
+
 
         ArrayList<Movil> movilList = client.getMovilList();
 
@@ -71,6 +71,52 @@ public class VentanaResultados extends JFrame
             btnGuardar.setFont(new Font("URIAL FONT", Font.BOLD, 15));
 
             pnlNorte.add(pnlMovil);
+
+            btnGuardar.addMouseListener(new MouseAdapter()
+            {
+                public void mouseClicked(MouseEvent e)
+                {
+
+                    //Se le pasa la id del movil y el usuario que quiere guardarlo al customer controler
+
+
+                    //Si se ha accedido como usuario, se pasa el nombre de usuario
+                    if(!VentanaResultados.this.nombreUsuario.equals("Invitado"))
+                    {
+                        Client cliente = new Client();
+                        HashMap<String,Object> session = new HashMap<String,Object>();
+
+                        session.put("id_modelo",m.getId_modelo());
+
+                        System.out.println("La id del modelo a guardar es:  "+m.getId_modelo());
+                        session.put("Usuario",VentanaResultados.this.nombreUsuario);
+
+                        cliente.enviar(session, "/guardarMovil");
+
+                        int exito=cliente.getExito4();
+                        if(!(exito==1))
+                        {
+                            JOptionPane.showMessageDialog(VentanaResultados.this, "Error al guardar el movil");
+
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(VentanaResultados.this, "Movil guardado correctamente");
+
+                        }
+
+                    }
+
+                    //Si se ha accedido como invitado, se alerta de que no se pueden guardar moviles
+                    else{
+                        JOptionPane.showMessageDialog(VentanaResultados.this, "No puede guardar moviles porque ha accedido como invitado");
+
+                    }
+
+
+
+
+                }
+            });
 
 
         }
