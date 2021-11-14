@@ -39,7 +39,7 @@ public class Ventana extends JFrame
 
 
 
-        btnShowAll = new JButton("Mostrar todos ");
+        btnShowAll = new JButton("Buscar Moviles ");
         btnShowAll.setBackground(new Color(255, 170, 0));
         btnShowAll.setForeground(new Color(255,69,0));
         btnShowAll.setFont(new Font("URIAL FONT", Font.BOLD, 20));
@@ -125,10 +125,10 @@ public class Ventana extends JFrame
         JTextField txtSeleccion4 = new JTextField();
         JTextField txtSeleccion5 = new JTextField();
 
-        JLabel background = new JLabel(new ImageIcon("src/icai/dtc/isw/Imagenes/fondo_phone.jpg"));
-        JLabel fondologo = new JLabel(new ImageIcon("src/icai/dtc/isw/Imagenes/fondo_titulo.jpg"));
+        JLabel background = new JLabel(new ImageIcon("Resources/fondo_phone.jpg"));
+        JLabel fondologo = new JLabel(new ImageIcon("Resources/fondo_titulo.jpg"));
         //JLabel logo = new JLabel(new ImageIcon("\\home\\clux\\Desktop\\Fotos_IW\\Logo_ISW.JPG"));
-        JLabel userfoto = new JLabel(new ImageIcon("src/icai/dtc/isw/Imagenes/avatar_usuario.jpg"));
+        JLabel userfoto = new JLabel(new ImageIcon("Resources/avatar_usuario.jpg"));
         JLabel vacio = new JLabel();
         vacio.setBackground(new Color(255, 170, 0));
         JPanel usuario = new JPanel(new FlowLayout());
