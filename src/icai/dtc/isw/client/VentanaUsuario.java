@@ -2,6 +2,8 @@ package icai.dtc.isw.client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 import icai.dtc.isw.domain.Movil;
@@ -55,6 +57,45 @@ public class VentanaUsuario extends JFrame
                 btnEliminar.setFont(new Font("URIAL FONT", Font.BOLD, 15));
 
                 pnlCentro.add(pnlMovil);
+
+                btnEliminar.addMouseListener(new MouseAdapter()
+                {
+                    public void mouseClicked(MouseEvent e)
+                    {
+
+                        //Se le pasa la id del movil y el usuario que quiere guardarlo al customer controler
+
+
+                        //Si se ha accedido como usuario, se pasa el nombre de usuario
+
+                            Client cliente = new Client();
+                            HashMap<String,Object> session = new HashMap<String,Object>();
+
+                            session.put("id_modelo",m.getId_modelo());
+
+                            System.out.println("La id del modelo a eliminar es:  "+m.getId_modelo());
+                            session.put("Usuario",VentanaUsuario.this.nombreUsuario);
+
+                            cliente.enviar(session, "/eliminarMovil");
+
+                            int exito=cliente.getExito5();
+
+                            if(!(exito==1)){
+                                JOptionPane.showMessageDialog(VentanaUsuario.this, "Error al eliminar el movil");
+
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(VentanaUsuario.this, "Movil eliminado correctamente");
+
+                            }
+
+
+
+
+
+
+                    }
+                });
 
             }
         }

@@ -19,7 +19,7 @@ import icai.dtc.isw.client.*;
 public class SocketServer extends Thread {
 	public static final int PORT_NUMBER = 8081;
 
-	public Client cliente;
+	//public Client cliente;
 
 	protected Socket socket;
 
@@ -112,6 +112,16 @@ public class SocketServer extends Thread {
 					HashMap<String,Object> session4=new HashMap<String, Object>();
 					session4.put("Exito4",exito4);
 					mensajeOut.setSession(session4);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
+				case "/eliminarMovil":
+					CustomerControler customerControler5 = new CustomerControler();
+					int exito5=customerControler5.eliminarMovil((String)mensajeIn.getSession().get("id_modelo"),(String)mensajeIn.getSession().get("Usuario"));
+					mensajeOut.setContext("/eliminarMovilResponse");
+					HashMap<String,Object> session5=new HashMap<String, Object>();
+					session5.put("Exito5",exito5);
+					mensajeOut.setSession(session5);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
 

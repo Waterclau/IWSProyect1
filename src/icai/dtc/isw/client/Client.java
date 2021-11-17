@@ -31,6 +31,7 @@ public class Client {
     int exito;
     int exito2;
     int exito4;
+    int exito5;
     String nombreUsuario;
 
 
@@ -103,6 +104,11 @@ public class Client {
                 break;
 
 
+            case "/eliminarMovilResponse":
+                System.out.println(mensajeVuelta.getSession());
+                this.exito5=(Integer)(mensajeVuelta.getSession().get("Exito5"));
+                break;
+
             default:
                 Logger.getRootLogger().info("Option not found");
                 System.out.println("\nError a la vuelta");
@@ -170,6 +176,10 @@ public class Client {
         return exito4;
     }
 
+    public int getExito5(){
+        return exito5;
+    }
+
     public String getNombreUsuario(){
         return nombreUsuario;
     }
@@ -204,15 +214,21 @@ public class Client {
                 Message msg=(Message)objectInputStream.readObject();
                 messageIn.setContext(msg.getContext());
                 messageIn.setSession(msg.getSession());
-		        /*System.out.println("\n1.- El valor devuelto es: "+messageIn.getContext());
+		        System.out.println("\n1.- El valor devuelto es: "+messageIn.getContext());
 		        String cadena=(String) messageIn.getSession().get("Nombre");
-		        System.out.println("\n2.- La cadena devuelta es: "+cadena);*/
+		        System.out.println("\n2.- La cadena devuelta es: "+cadena);
 
             } catch (UnknownHostException e) {
                 System.err.println("Unknown host: " + host);
                 System.exit(1);
             } catch (IOException e) {
                 System.err.println("Unable to get streams from server");
+                System.out.println(e.getMessage());
+
+                System.out.println("\n1.- El valor devuelto es: "+messageIn.getContext());
+                String cadena=(String) messageIn.getSession().get("Nombre");
+                System.out.println("\n2.- La cadena devuelta es: "+cadena);
+
                 System.exit(1);
             }
 

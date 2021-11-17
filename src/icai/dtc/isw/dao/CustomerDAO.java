@@ -97,6 +97,37 @@ public class CustomerDAO {
 	}
 
 
+	public static int eliminarMovil(String id_modelo, String usuario)
+	{
+		int exito=1;
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("UPDATE usuarios SET id_moviles= array_remove(id_moviles,"+id_modelo+") WHERE usuario='"+usuario+"'");
+			 ResultSet rs = pst.executeQuery()){
+
+
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+
+			if(!ex.getMessage().contains("No results were returned"))
+			{
+				exito=0;
+
+			}
+
+
+		}
+
+		return exito;
+
+
+
+	}
+
+
+
+
+
 	public static int login(ArrayList<Movil> listaMovil,String usuario, String password)
 	{
 		int exito=1;

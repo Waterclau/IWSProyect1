@@ -38,5 +38,11 @@ public class CustomerControler {
 		return exito;
 	}
 
+	public int eliminarMovil(String id_modelo, String usuario)
+	{
+		int exito = CustomerDAO.eliminarMovil(id_modelo, usuario);
+		return exito;
+	}
+
 
 }
