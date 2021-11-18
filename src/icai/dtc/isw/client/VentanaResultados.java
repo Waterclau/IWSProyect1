@@ -54,9 +54,13 @@ public class VentanaResultados extends JFrame
         {
             JPanel pnlMovil = new JPanel(new FlowLayout());
             JButton btnGuardar = new JButton("Guardar");
+            JButton btnPublicarReview = new JButton("Publicar review");
+            JButton btnVerReviews = new JButton("Ver reviews");
             txt = new JTextField();
             pnlMovil.add(txt);
             pnlMovil.add(btnGuardar);
+            pnlMovil.add(btnPublicarReview);
+            pnlMovil.add(btnVerReviews);
             pnlMovil.setBackground(new Color(255, 170, 0));
 
 
@@ -69,6 +73,14 @@ public class VentanaResultados extends JFrame
             btnGuardar.setForeground(new Color(255,69,0));
             btnGuardar.setBackground(new Color(194, 197, 204));
             btnGuardar.setFont(new Font("URIAL FONT", Font.BOLD, 15));
+
+            btnPublicarReview.setForeground(new Color(255,69,0));
+            btnPublicarReview.setBackground(new Color(194, 197, 204));
+            btnPublicarReview.setFont(new Font("URIAL FONT", Font.BOLD, 15));
+
+            btnVerReviews.setForeground(new Color(255,69,0));
+            btnVerReviews.setBackground(new Color(194, 197, 204));
+            btnVerReviews.setFont(new Font("URIAL FONT", Font.BOLD, 15));
 
             pnlNorte.add(pnlMovil);
 
