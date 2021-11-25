@@ -10,6 +10,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import icai.dtc.isw.domain.Review;
 import org.apache.log4j.Logger;
 
 import icai.dtc.isw.configuration.PropertiesISW;
@@ -28,11 +29,15 @@ public class Client {
     ArrayList<Customer> customerList;
     ArrayList<Movil> movilList;
     ArrayList<Movil> movilesUsuario;
+    ArrayList<Review> reviews;
     int exito;
     int exito2;
     int exito4;
     int exito5;
+    int exito7;
+
     String nombreUsuario;
+    String id_movil;
 
 
     public void enviar(HashMap<String, Object> session, String context) {
@@ -109,6 +114,17 @@ public class Client {
                 this.exito5=(Integer)(mensajeVuelta.getSession().get("Exito5"));
                 break;
 
+            case "/verReviewsResponse":
+                System.out.println(mensajeVuelta.getSession());
+                this.reviews=(ArrayList<Review>)(mensajeVuelta.getSession().get("Reviews"));
+                break;
+
+            case "/publicarReviewResponse":
+                System.out.println(mensajeVuelta.getSession());
+                this.exito7=(Integer)(mensajeVuelta.getSession().get("Exito7"));
+                break;
+
+
             default:
                 Logger.getRootLogger().info("Option not found");
                 System.out.println("\nError a la vuelta");
@@ -145,6 +161,11 @@ public class Client {
     public void setNombreUsuario(String usuario)
     {
         this.nombreUsuario = usuario;
+    }
+
+    public void setId_movil(String id_movil)
+    {
+        this.id_movil=id_movil;
     }
 
     public HashMap<String, String> getCustomers()

@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.domain.Movil;
+import icai.dtc.isw.domain.Review;
 
 public class CustomerDAO {
 
@@ -120,9 +121,49 @@ public class CustomerDAO {
 
 		return exito;
 
+	}
 
+	public static ArrayList<Review> verReviews(String id_modelo) {
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		ArrayList<Review>reviews = new ArrayList<Review>();
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM reviews WHERE id_movil="+id_modelo);
+			 ResultSet rs = pst.executeQuery()) {
+
+			while (rs.next()) {
+				Review review= new Review(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
+				reviews.add(review);
+			}
+
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+		return reviews;
+	}
+
+	public static int publicarReview(String id_movil,String usuario, String comentario, String puntuacion)
+	{
+		int exito=1;
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("INSERT INTO reviews (id_movil,usuario,comentario,puntuacion) VALUES ("+id_movil+",'"+usuario+"','"+comentario+"',"+puntuacion+");");
+			 ResultSet rs = pst.executeQuery()){
+
+
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+			if(!ex.getMessage().contains("No results were")){
+				exito=0;
+
+			}
+
+
+		}
+		return exito;
 
 	}
+
+
 
 
 

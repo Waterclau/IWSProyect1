@@ -7,6 +7,7 @@ import icai.dtc.isw.dao.CustomerDAO;
 import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.domain.Movil;
 import icai.dtc.isw.client.VentanaResultados;
+import icai.dtc.isw.domain.Review;
 
 
 public class CustomerControler {
@@ -41,6 +42,18 @@ public class CustomerControler {
 	public int eliminarMovil(String id_modelo, String usuario)
 	{
 		int exito = CustomerDAO.eliminarMovil(id_modelo, usuario);
+		return exito;
+	}
+
+	public ArrayList<Review> verReviews(String id_modelo)
+	{
+		ArrayList<Review>reviews=CustomerDAO.verReviews(id_modelo);
+		return reviews;
+	}
+
+	public int publicarReview(String id_movil,String usuario, String comentario, String puntuacion)
+	{
+		int exito=CustomerDAO.publicarReview(id_movil,usuario,comentario,puntuacion);
 		return exito;
 	}
 

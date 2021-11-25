@@ -40,9 +40,11 @@ public class VentanaUsuario extends JFrame
             for(Movil m: movilesUsuario) {
                 JPanel pnlMovil = new JPanel(new FlowLayout());
                 JButton btnEliminar = new JButton("Eliminar");
+                JButton btnVerReviews = new JButton("Ver reviews");
                 JTextField txt = new JTextField();
                 pnlMovil.add(txt);
                 pnlMovil.add(btnEliminar);
+                pnlMovil.add(btnVerReviews);
                 pnlMovil.setBackground(new Color(255, 170, 0));
 
 
@@ -55,6 +57,10 @@ public class VentanaUsuario extends JFrame
                 btnEliminar.setForeground(new Color(255, 69, 0));
                 btnEliminar.setBackground(new Color(194, 197, 204));
                 btnEliminar.setFont(new Font("URIAL FONT", Font.BOLD, 15));
+
+                btnVerReviews.setForeground(new Color(255, 69, 0));
+                btnVerReviews.setBackground(new Color(194, 197, 204));
+                btnVerReviews.setFont(new Font("URIAL FONT", Font.BOLD, 15));
 
                 pnlCentro.add(pnlMovil);
 
@@ -95,6 +101,38 @@ public class VentanaUsuario extends JFrame
 
 
                     }
+                });
+
+
+
+                btnVerReviews.addMouseListener(new MouseAdapter()
+                {
+                    public void mouseClicked(MouseEvent e)
+                    {
+
+                        //Se le pasa la id del movil
+
+
+                        Client cliente2 = new Client();
+                        HashMap<String,Object> session2 = new HashMap<String,Object>();
+
+                        session2.put("id_modelo",m.getId_modelo());
+
+                        System.out.println("La id del modelo es:  "+m.getId_modelo());
+
+                        cliente2.setNombreUsuario(VentanaUsuario.this.nombreUsuario);
+                        cliente2.enviar(session2, "/verReviews");
+
+                        if(cliente2.reviews.isEmpty())
+                        {
+                            JOptionPane.showMessageDialog(VentanaUsuario.this, "El movil no tiene reviews");
+                        }
+                        else{
+                            new VentanaReviews(cliente2);
+                        }
+
+                    }
+
                 });
 
             }

@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 import icai.dtc.isw.controler.CustomerControler;
 import icai.dtc.isw.domain.Customer;
+import icai.dtc.isw.domain.Review;
 import icai.dtc.isw.message.Message;
 import icai.dtc.isw.domain.Movil;
 import icai.dtc.isw.client.*;
@@ -125,7 +126,25 @@ public class SocketServer extends Thread {
 					objectOutputStream.writeObject(mensajeOut);
 					break;
 
+				case "/verReviews":
+					CustomerControler customerControler6 = new CustomerControler();
+					ArrayList<Review>reviews=customerControler6.verReviews((String)mensajeIn.getSession().get("id_modelo"));
+					mensajeOut.setContext("/verReviewsResponse");
+					HashMap<String,Object> session6 = new HashMap<String,Object>();
+					session6.put("Reviews",reviews);
+					mensajeOut.setSession(session6);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
 
+				case "/publicarReview":
+					CustomerControler customerControler7 = new CustomerControler();
+					int exito7=customerControler7.publicarReview((String)mensajeIn.getSession().get("Id_movil"),(String)mensajeIn.getSession().get("Usuario"),(String)mensajeIn.getSession().get("Comentario"),(String)mensajeIn.getSession().get("Puntuacion"));
+					mensajeOut.setContext("/publicarReviewResponse");
+					HashMap<String,Object> session7 = new HashMap<String,Object>();
+					session7.put("Exito7",exito7);
+					mensajeOut.setSession(session7);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
 
 				default:
 		    		System.out.println("\nParámetro no encontrado");

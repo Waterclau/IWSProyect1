@@ -131,6 +131,43 @@ public class VentanaResultados extends JFrame
             });
 
 
+            btnVerReviews.addMouseListener(new MouseAdapter()
+            {
+                public void mouseClicked(MouseEvent e)
+                {
+
+                    //Se le pasa la id del movil y el usuario
+
+
+                    Client cliente = new Client();
+                    HashMap<String,Object> session = new HashMap<String,Object>();
+
+                    session.put("id_modelo",m.getId_modelo());
+
+                    System.out.println("La id del modelo es:  "+m.getId_modelo());
+
+                    cliente.enviar(session, "/verReviews");
+                    cliente.setNombreUsuario(VentanaResultados.this.nombreUsuario);
+                    cliente.setId_movil(m.getId_modelo());
+
+                    if(cliente.reviews.isEmpty())
+                    {
+                        JOptionPane.showMessageDialog(VentanaResultados.this, "El movil no tiene reviews");
+                    }
+                    else{
+                        new VentanaReviews(cliente);
+                    }
+
+
+                }
+
+            });
+
+
+
+
+
+
         }
 
 
