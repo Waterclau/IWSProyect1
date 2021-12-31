@@ -16,19 +16,8 @@ import icai.dtc.isw.domain.Movil;
 public class Ventana extends JFrame
 {
 
-
-
-
     JButton btnShowAll;
     String nombreUsuario;
-
-
-
-
-
-
-
-
 
 
 

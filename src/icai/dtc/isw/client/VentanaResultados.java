@@ -9,6 +9,7 @@ import java.util.*;
 
 import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.domain.Movil;
+import icai.dtc.isw.domain.Review;
 
 public class VentanaResultados extends JFrame
 {
@@ -54,12 +55,10 @@ public class VentanaResultados extends JFrame
         {
             JPanel pnlMovil = new JPanel(new FlowLayout());
             JButton btnGuardar = new JButton("Guardar");
-            JButton btnPublicarReview = new JButton("Publicar review");
             JButton btnVerReviews = new JButton("Ver reviews");
             txt = new JTextField();
             pnlMovil.add(txt);
             pnlMovil.add(btnGuardar);
-            pnlMovil.add(btnPublicarReview);
             pnlMovil.add(btnVerReviews);
             pnlMovil.setBackground(new Color(255, 170, 0));
 
@@ -74,9 +73,6 @@ public class VentanaResultados extends JFrame
             btnGuardar.setBackground(new Color(194, 197, 204));
             btnGuardar.setFont(new Font("URIAL FONT", Font.BOLD, 15));
 
-            btnPublicarReview.setForeground(new Color(255,69,0));
-            btnPublicarReview.setBackground(new Color(194, 197, 204));
-            btnPublicarReview.setFont(new Font("URIAL FONT", Font.BOLD, 15));
 
             btnVerReviews.setForeground(new Color(255,69,0));
             btnVerReviews.setBackground(new Color(194, 197, 204));
@@ -153,6 +149,8 @@ public class VentanaResultados extends JFrame
                     if(cliente.reviews.isEmpty())
                     {
                         JOptionPane.showMessageDialog(VentanaResultados.this, "El movil no tiene reviews");
+                        new VentanaReviews(cliente);
+
                     }
                     else{
                         new VentanaReviews(cliente);

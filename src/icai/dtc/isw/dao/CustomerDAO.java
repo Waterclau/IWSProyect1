@@ -194,7 +194,7 @@ public class CustomerDAO {
 								while (rs3.next()) {
 									listaMovil.add(new Movil(rs3.getString(1),rs3.getString(2), rs3.getString(3), rs3.getString(4), rs3.getString(5), rs3.getString(6)));
 									System.out.println(listaMovil);
-									System.out.println("hola");
+									
 								}
 
 							} catch (SQLException ex) {

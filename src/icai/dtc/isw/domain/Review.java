@@ -43,5 +43,10 @@ public class Review implements Serializable
         return puntuacion;
     }
 
+    public String getDatos()
+    {
+        return "idMovil:"+id_movil+",  Usuario: "+ usuario+",  Comentario: "+comentario+",  Puntuacion: "+puntuacion;
+    }
+
 
 }

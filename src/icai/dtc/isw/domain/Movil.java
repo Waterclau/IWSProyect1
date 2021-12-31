@@ -84,4 +84,18 @@ public class Movil implements Serializable{
         return "Marca: "+this.marca+" , Precio: "+ this.precio+ ", Modelo: "+ this.modelo + "Almacenamiento: "+ this.almacenamiento+ ",  Memoria: "+ this.memoria;
     }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        Movil movil = (Movil)o;
+        if((this.getDatos()).equals(movil.getDatos()))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }
