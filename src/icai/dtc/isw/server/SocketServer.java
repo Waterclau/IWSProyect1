@@ -44,10 +44,12 @@ public class SocketServer extends Thread {
 		    //Object to return informations 
 		    ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
 		    Message mensajeOut=new Message();
-		    switch (mensajeIn.getContext()) {
+
+			CustomerControler customerControler=new CustomerControler();
+
+			switch (mensajeIn.getContext()) {
 
 		    	case "/getCustomers":
-		    		CustomerControler customerControler=new CustomerControler();
 		    		ArrayList<Customer> lista=new ArrayList<Customer>();
 		    		customerControler.getCustomer(lista);
 		    		mensajeOut.setContext("/getCustomerResponse");
@@ -59,9 +61,8 @@ public class SocketServer extends Thread {
 		    		break;
 
 				case "/login":
-					CustomerControler customerControler3 = new CustomerControler();
 					ArrayList<Movil> listaMoviles = new ArrayList<Movil>();
-					int exito=customerControler3.login(listaMoviles, (String)mensajeIn.getSession().get("Usuario"), (String)mensajeIn.getSession().get("Password"));
+					int exito=customerControler.login(listaMoviles, (String)mensajeIn.getSession().get("Usuario"), (String)mensajeIn.getSession().get("Password"));
 					for(Movil m: listaMoviles)
 					{
 						System.out.println(m.getDatos());
@@ -79,11 +80,10 @@ public class SocketServer extends Thread {
 
 
 				case "/getMovil":
-					CustomerControler customerControler1=new CustomerControler();
 					ArrayList<Movil> listaMovil=new ArrayList<Movil>();
 					System.out.println(mensajeIn.getSession().get("Marca"));
 					System.out.println(mensajeIn.getSession().get("Precio"));
-					customerControler1.getMovil(listaMovil, (String)mensajeIn.getSession().get("Marca"), (String)mensajeIn.getSession().get("Precio"), (String)mensajeIn.getSession().get("Modelo"), (String)mensajeIn.getSession().get("Almacenamiento"), (String)mensajeIn.getSession().get("Memoria") );
+					customerControler.getMovil(listaMovil, (String)mensajeIn.getSession().get("Marca"), (String)mensajeIn.getSession().get("Precio"), (String)mensajeIn.getSession().get("Modelo"), (String)mensajeIn.getSession().get("Almacenamiento"), (String)mensajeIn.getSession().get("Memoria") );
 					System.out.println("Lista de moviles seleccionados");
 					System.out.print(listaMovil);
 					mensajeOut.setContext("/getMovilResponse");
@@ -95,8 +95,7 @@ public class SocketServer extends Thread {
 		    		break;
 
 				case "/setCustomer":
-					CustomerControler customerControler2 = new CustomerControler();
-					int exito2=customerControler2.setCustomer((String)mensajeIn.getSession().get("Usuario"),(String)mensajeIn.getSession().get("Password"));
+					int exito2=customerControler.setCustomer((String)mensajeIn.getSession().get("Usuario"),(String)mensajeIn.getSession().get("Password"));
 					mensajeOut.setContext("/setCustomerResponse");
 					HashMap<String,Object> session2=new HashMap<String, Object>();
 					session2.put("Customer","Usuario creado");
@@ -107,8 +106,7 @@ public class SocketServer extends Thread {
 
 
 				case "/guardarMovil":
-					CustomerControler customerControler4 = new CustomerControler();
-					int exito4=customerControler4.guardarMovil((String)mensajeIn.getSession().get("id_modelo"),(String)mensajeIn.getSession().get("Usuario"));
+					int exito4=customerControler.guardarMovil((String)mensajeIn.getSession().get("id_modelo"),(String)mensajeIn.getSession().get("Usuario"));
 					mensajeOut.setContext("/guardarMovilResponse");
 					HashMap<String,Object> session4=new HashMap<String, Object>();
 					session4.put("Exito4",exito4);
@@ -117,8 +115,7 @@ public class SocketServer extends Thread {
 					break;
 
 				case "/eliminarMovil":
-					CustomerControler customerControler5 = new CustomerControler();
-					int exito5=customerControler5.eliminarMovil((String)mensajeIn.getSession().get("id_modelo"),(String)mensajeIn.getSession().get("Usuario"));
+					int exito5=customerControler.eliminarMovil((String)mensajeIn.getSession().get("id_modelo"),(String)mensajeIn.getSession().get("Usuario"));
 					mensajeOut.setContext("/eliminarMovilResponse");
 					HashMap<String,Object> session5=new HashMap<String, Object>();
 					session5.put("Exito5",exito5);
@@ -127,8 +124,7 @@ public class SocketServer extends Thread {
 					break;
 
 				case "/verReviews":
-					CustomerControler customerControler6 = new CustomerControler();
-					ArrayList<Review>reviews=customerControler6.verReviews((String)mensajeIn.getSession().get("id_modelo"));
+					ArrayList<Review>reviews=customerControler.verReviews((String)mensajeIn.getSession().get("id_modelo"));
 					mensajeOut.setContext("/verReviewsResponse");
 					HashMap<String,Object> session6 = new HashMap<String,Object>();
 					session6.put("Reviews",reviews);
@@ -137,8 +133,7 @@ public class SocketServer extends Thread {
 					break;
 
 				case "/publicarReview":
-					CustomerControler customerControler7 = new CustomerControler();
-					int exito7=customerControler7.publicarReview((String)mensajeIn.getSession().get("Id_movil"),(String)mensajeIn.getSession().get("Usuario"),(String)mensajeIn.getSession().get("Comentario"),(String)mensajeIn.getSession().get("Puntuacion"));
+					int exito7=customerControler.publicarReview((String)mensajeIn.getSession().get("Id_movil"),(String)mensajeIn.getSession().get("Usuario"),(String)mensajeIn.getSession().get("Comentario"),(String)mensajeIn.getSession().get("Puntuacion"));
 					mensajeOut.setContext("/publicarReviewResponse");
 					HashMap<String,Object> session7 = new HashMap<String,Object>();
 					session7.put("Exito7",exito7);
