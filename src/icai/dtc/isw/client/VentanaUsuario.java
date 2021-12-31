@@ -126,6 +126,7 @@ public class VentanaUsuario extends JFrame
                         if(cliente2.reviews.isEmpty())
                         {
                             JOptionPane.showMessageDialog(VentanaUsuario.this, "El movil no tiene reviews");
+                            new VentanaReviews(cliente2);
                         }
                         else{
                             new VentanaReviews(cliente2);
